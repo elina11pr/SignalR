@@ -1,28 +1,26 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-namespace AppServer
-{
-    class Program
+var host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((context, services) =>
     {
-        static void Main(string[] args)
-        {
-            HttpListener listener = new HttpListener();
-            listener.Prefixes.Add("http://localhost:5000/");
-            listener.Start();
-            Console.WriteLine("Listening on port 5000...");
-
-            while (true)
+        services.AddSignalR();
+    })
+    .ConfigureWebHostDefaults(webBuilder =>
+    {
+        webBuilder.UseKestrel()
+            .UseUrls("http://localhost:7054") 
+            .Configure(app =>
             {
-                HttpListenerContext context = listener.GetContext();
-                HttpListenerRequest request = context.Request;
-                using (var reader = new StreamReader(request.InputStream, request.ContentEncoding))
-
+                app.UseRouting();
+                app.UseEndpoints(endpoints =>
                 {
-                    string requestBody = reader.ReadToEnd();
-                    Console.WriteLine($"Request body: {requestBody}");
-                }
-            }
+                    endpoints.MapHub<SignalRHub>("/current-time");
+                });
+            });
+    })
+    .Build();
 
-        }
-    }
-}
+await host.RunAsync();

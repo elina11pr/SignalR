@@ -29,3 +29,4 @@ C:\Users\igori\source\repos\AppClient\AppClient\obj\Debug\net8.0\refint\AppClien
 C:\Users\igori\source\repos\AppClient\AppClient\obj\Debug\net8.0\AppClient.pdb
 C:\Users\igori\source\repos\AppClient\AppClient\obj\Debug\net8.0\AppClient.genruntimeconfig.cache
 C:\Users\igori\source\repos\AppClient\AppClient\obj\Debug\net8.0\ref\AppClient.dll
+C:\Users\igori\source\repos\AppClient\AppClient\obj\Debug\net8.0\AppClient.sourcelink.json
