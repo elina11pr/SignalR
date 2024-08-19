@@ -1,0 +1,35 @@
+# Ігнорує всі файли, що генеруються середовищем розробки
+.vs/
+*.vscode/
+*.user
+*.suo
+*.userosscache
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+*.cache
+*.pdb
+*.log
+*.tmp
+*.dmp
+*.obj
+*.exe
+*.dll
+
+# Ігнорує тимчасові файли та каталоги
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Ігнорує файли та директорії специфічні для операційної системи
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Ігнорує файли NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
