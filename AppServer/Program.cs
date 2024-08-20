@@ -11,7 +11,7 @@ var host = Host.CreateDefaultBuilder(args)
     .ConfigureWebHostDefaults(webBuilder =>
     {
         webBuilder.UseKestrel()
-            .UseUrls("http://localhost:7054") 
+            .UseUrls("http://localhost:7054")  
             .Configure(app =>
             {
                 app.UseRouting();
