@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public class MyClient
@@ -25,18 +26,29 @@ public class MyClient
 
         await _connection.StartAsync();
 
-        Console.WriteLine("Enter your name:");
-        var name = Console.ReadLine();
+ 
+        var names = await GetNamesFromHub();
+        Console.WriteLine("Name with list:");
+        foreach (var name in names)
+        {
+            Console.WriteLine(name);
+        }
 
-        Console.WriteLine("You can enter a message. To send a new message, just press Enter)");
+        Console.WriteLine("Enter your name:");
+        var userName = Console.ReadLine();
+
 
         while (true)
         {
-  
+
+
+            Console.WriteLine("You can enter a message. To send a new message, just press Enter)");
+
+            Console.WriteLine("Enter Message:");
             var message = Console.ReadLine();
             if (!string.IsNullOrEmpty(message))
             {
-                var success = await SendMessageAsync(name, message);
+                var success = await SendMessageAsync(userName, message);
                 Console.WriteLine(success ? "Your message has been sent successfully." : "Sending error.");
             }
         }
@@ -57,5 +69,23 @@ public class MyClient
             Console.WriteLine($"Error sending message: {ex.Message}");
         }
         return false;
+    }
+
+
+    public async Task<List<string>> GetNamesFromHub()
+    {
+        try
+        {
+            if (_connection != null)
+            {
+                var names = await _connection.InvokeAsync<List<string>>("GetName");
+                return names;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error getting names from hub: {ex.Message}");
+        }
+        return new List<string>(); 
     }
 }
